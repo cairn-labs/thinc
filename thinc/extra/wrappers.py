@@ -174,7 +174,7 @@ class PyTorchWrapper(Model):
 
     def from_disk(self, path):
         # TODO: Untested
-        self._model.load_state_dict(torch.load(path))
+        self._model.load_state_dict(torch.load(path, map_location='cpu'))
 
     def to_bytes(self):
         # TODO: Untested
@@ -187,7 +187,7 @@ class PyTorchWrapper(Model):
         # TODO: Untested
         filelike = BytesIO(data)
         filelike.seek(0)
-        self._model.load_state_dict(torch.load(filelike))
+        self._model.load_state_dict(torch.load(filelike, map_location='cpu'))
 
     def to_gpu(self, device_num):
         self._model.cuda(device_num)
